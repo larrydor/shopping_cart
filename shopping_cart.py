@@ -41,6 +41,8 @@ def to_usd(my_price):
 
 # print(products)
 
+total_purchase = 0
+tax = float(0.0875)
 while True: 
     selected_item = input("Select an item number: ")
     if selected_item == "DONE":
@@ -49,4 +51,8 @@ while True:
         # print(selected_item)
         matching_products = [item for item in products if str(item["id"]) == str(selected_item)]
         matching_product = matching_products[0]
+        total_purchase = total_purchase + matching_product["price"]
         print(matching_product["name"] + " " + str(matching_product["price"]))
+
+print("Total Price:" + str(total_purchase))
+print("Tax:" + str(total_purchase * tax))
