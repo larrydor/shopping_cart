@@ -39,11 +39,13 @@ def to_usd(my_price):
 
 # TODO: write some Python code here to produce the desired output
 
-# print(products)
-
+from datetime import datetime
+import pytz
+now = datetime.now(tz=pytz.timezone('America/New_York'))
+# source: https://stackoverflow.com/questions/11873714/how-do-i-get-new-york-city-time/44887040
 total_purchase = 0
 selected_ids = []
-# tax = float(0.0875)
+taxrate = float(0.0875)
 while True: 
     selected_item = input("Select an item number: ")
     if selected_item == "DONE":
@@ -60,8 +62,25 @@ for selected_item in selected_ids:
     matching_products = [item for item in products if str(item["id"]) == str(selected_item)]
     matching_product = matching_products[0]
     total_purchase = total_purchase + matching_product["price"]
-    print("SELECTED PRODUCT: " + matching_product["name"] + " " + str(matching_product["price"]))
+    # print("SELECTED PRODUCT: " + matching_product["name"] + " " + str(matching_product["price"]))
 
-print("Total Price:" + " " + str(total_purchase))
+tax_total = (total_purchase * taxrate)
+total_total = total_purchase + tax_total
+print("-----------------------------------")
+print("The Great Variety SuperStore!")
+print("WWW.Brooklyn-SuperStore.COM")
+print("-----------------------------------")
+print("CHECKOUT TIME:" + " " + str(now))
+print("-----------------------------------")
+print("SELECTED PRODUCTS:")
+for item in selected_ids:
+    print(matching_product["name"] + " " + to_usd(matching_product["price"]))
+print("-----------------------------------")
+print("SUBTOTAL:" + " " + to_usd(total_purchase))
+print("TAX:" + " " + to_usd(tax_total))
+print("TOTAL:" + " " + to_usd(total_total))
 # print("Tax:" + str(total_purchase * tax))
 # print(selected_ids)
+print("-----------------------------------")
+print("THANK YOU FOR SHOPPING WITH US!")
+print("-----------------------------------")
