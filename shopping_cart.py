@@ -46,14 +46,14 @@ def to_usd(my_price):
 
 
 
-taxrate = os.getenv("TAX_RATE")
+taxrate_env = os.getenv("TAX_RATE")
+taxrate = float(taxrate_env)
 #now = datetime.today().strftime('%m-%d-%Y %H:%M:%S')
 #source: https://stackoverflow.com/questions/32490629/getting-todays-date-in-yyyy-mm-dd-in-python
 
 total_purchase = 0
 
 selected_ids = []
-
 while True:
     selected_item = input("Select an item number: ")
 
@@ -65,6 +65,8 @@ while True:
             matching_product = matching_products[0]
             selected_ids.append(selected_item)
             total_purchase = total_purchase + matching_product["price"]
+            #total_purchase = sum([float(item["price"]) for item in selected_ids])
+            #source: https://github.com/s2t2/shopping-cart-with-email-receipts/blob/master/checkout.py
         #print(selected_item)
         #matching_products = [item for item in products if str(item["id"]) == str(selected_item)]
         #matching_product = matching_products[0]
@@ -79,8 +81,10 @@ while True:
     # print("SELECTED PRODUCT: " + matching_product["name"] + " " + str(matching_product["price"]))
     # selected_ids.append(matching_product)
 
-tax_total = str(total_purchase * taxrate)
-total_total = str(total_purchase + tax_total)
+tax_total = total_purchase * taxrate
+total_total = total_purchase + tax_total
+
+
 print("-----------------------------------")
 print("The Great Variety SuperStore!")
 print("WWW.Brooklyn-Variety-SuperStore.COM")
@@ -99,3 +103,6 @@ print("TOTAL:" + " " + to_usd(total_total))
 print("-----------------------------------")
 print("THANK YOU FOR SHOPPING WITH US!")
 print("-----------------------------------")
+
+#print(type(total_purchase))
+#print(type(taxrate))
