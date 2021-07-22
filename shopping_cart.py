@@ -40,9 +40,8 @@ def to_usd(my_price):
 # TODO: write some Python code here to produce the desired output
 
 from datetime import datetime
-import pytz
-now = datetime.now(tz=pytz.timezone('America/New_York'))
-# source: https://stackoverflow.com/questions/11873714/how-do-i-get-new-york-city-time/44887040
+now = datetime.today().strftime('%m-%d-%Y %H:%M:%S')
+# source: https://stackoverflow.com/questions/32490629/getting-todays-date-in-yyyy-mm-dd-in-python
 total_purchase = 0
 selected_ids = []
 taxrate = float(0.0875)
@@ -69,7 +68,7 @@ total_total = total_purchase + tax_total
 print("-----------------------------------")
 print("The Great Variety SuperStore!")
 print("WWW.Brooklyn-Variety-SuperStore.COM")
-print("Phone: (718)-700-0000")
+print("Phone:(718)-725-0000")
 print("-----------------------------------")
 print("CHECKOUT TIME:" + " " + str(now))
 print("-----------------------------------")
@@ -80,8 +79,6 @@ print("-----------------------------------")
 print("SUBTOTAL:" + " " + to_usd(total_purchase))
 print("TAX:" + " " + to_usd(tax_total))
 print("TOTAL:" + " " + to_usd(total_total))
-# print("Tax:" + str(total_purchase * tax))
-# print(selected_ids)
 print("-----------------------------------")
 print("THANK YOU FOR SHOPPING WITH US!")
 print("-----------------------------------")
