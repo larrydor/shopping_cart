@@ -145,26 +145,26 @@ else:
     print("Sending receipt via email...")
 
     # format all product prices as we'd like them to appear in the email...
-    formatted_products = []
-    for item in selected_ids:
-        formatted_product = item
-            if not isinstance(formatted_product["price"], str): # weird that this is necessary, only when there are duplicative selections, like 1,1 or 1,2,1 or 3,2,1,2 because when looping through and modifying a previous identical dict, it appears Python treats the next identical dict as the same object that we updated, so treating it as a copy of the first rather than its own unique object in its own right.
-            formatted_product["price"] = to_usd(p["price"])
-        formatted_products.append(formatted_product)
+    # formatted_products = []
+    #for item in selected_ids:
+    #    formatted_product = item
+    #        if not isinstance(formatted_product["price"], str): # weird that this is necessary, only when there are duplicative selections, like 1,1 or 1,2,1 or 3,2,1,2 because when looping through and modifying a previous identical dict, it appears Python treats the next identical dict as the same object that we updated, so treating it as a copy of the first rather than its own unique object in its own right.
+    #        formatted_product["price"] = to_usd(p["price"])
+    #    formatted_products.append(formatted_product)
 
     receipt = {
         "subtotal_price_usd": to_usd(total_purchase),
         "tax_price_usd": to_usd(tax_total),
         "total_price_usd": to_usd(total_total),
         "human_friendly_timestamp": now,
-        "products": formatted_products
+        "products": (matching_product["name"] + " (" + to_usd(matching_product["price"]) + ")")
     }
     #print(receipt)
 
     client = SendGridAPIClient(SENDGRID_API_KEY)
 
     message = Mail(from_email=user_email_address, to_emails=user_email_address)
-    message.template_id = SENDGRID_TEMPLATE_ID
+    message.template_id = "797fd08eb41e4565a8d0f78fe536bf38"
     message.dynamic_template_data = receipt
 
     response = client.send(message)
