@@ -4,7 +4,7 @@ from datetime import datetime
 import os
 from dotenv import load_dotenv
 from sendgrid import SendGridAPIClient
-from sendgird.helpers.mail import Mail
+from sendgrid.helpers.mail import Mail
 # source: https://github.com/prof-rossetti/nyu-info-2335-201905/blob/master/notes/python/packages/sendgrid.md
 load_dotenv()
 
@@ -12,7 +12,16 @@ taxrate_env = os.getenv("TAX_RATE")
 SENDGRID_API_KEY = os.environ.get("SENDGRID_API_KEY", "OOPS, please create an environment variable called 'SENDGRID_API_KEY'")
 MY_ADDRESS = os.environ.get("MY_EMAIL_ADDRESS" "OOPS, please create an environment variable called 'SENDGRID_API_KEY'")
 
-
+#sg = sendgrid.SendGridAPIClient(api_key=os.environ.get('SENDGRID_API_KEY'))
+#from_email = os.environ.get("MY_EMAIL_ADDRESS" "OOPS, please create an environment variable called 'SENDGRID_API_KEY'")
+#to_email = os.environ.get("MY_EMAIL_ADDRESS" "OOPS, please create an environment variable called 'SENDGRID_API_KEY'")
+#subject = "Sending with SendGrid is Fun"
+#content = Content("text/plain", "and easy to do anywhere, even with Python")
+#mail = Mail(from_email, to_email, subject, content)
+#response = sg.client.mail.send.post(request_body=mail.get())
+#print(response.status_code)
+#print(response.body)
+#print(response.headers)
 
 
 
@@ -139,7 +148,7 @@ else:
     formatted_products = []
     for item in selected_ids:
         formatted_product = item
-        if not isinstance(formatted_product["price"], str): # weird that this is necessary, only when there are duplicative selections, like 1,1 or 1,2,1 or 3,2,1,2 because when looping through and modifying a previous identical dict, it appears Python treats the next identical dict as the same object that we updated, so treating it as a copy of the first rather than its own unique object in its own right.
+            if not isinstance(formatted_product["price"], str): # weird that this is necessary, only when there are duplicative selections, like 1,1 or 1,2,1 or 3,2,1,2 because when looping through and modifying a previous identical dict, it appears Python treats the next identical dict as the same object that we updated, so treating it as a copy of the first rather than its own unique object in its own right.
             formatted_product["price"] = to_usd(p["price"])
         formatted_products.append(formatted_product)
 
