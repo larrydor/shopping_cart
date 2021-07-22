@@ -1,5 +1,10 @@
 # shopping_cart.py
 
+from datetime import datetime
+import os
+from dotenv import load_dotenv
+load_dotenv()
+
 products = [
     {"id":1, "name": "Chocolate Sandwich Cookies", "department": "snacks", "aisle": "cookies cakes", "price": 3.50},
     {"id":2, "name": "All-Seasons Salt", "department": "pantry", "aisle": "spices seasonings", "price": 4.99},
@@ -39,45 +44,50 @@ def to_usd(my_price):
 
 # TODO: write some Python code here to produce the desired output
 
-from datetime import datetime
-import os
-from dotenv import load_dotenv
-load_dotenv()
 
-taxrate = os.getenv(("TAX_RATE")
-# now = datetime.today().strftime('%m-%d-%Y %H:%M:%S')
-# source: https://stackoverflow.com/questions/32490629/getting-todays-date-in-yyyy-mm-dd-in-python
+
+taxrate = os.getenv("TAX_RATE")
+#now = datetime.today().strftime('%m-%d-%Y %H:%M:%S')
+#source: https://stackoverflow.com/questions/32490629/getting-todays-date-in-yyyy-mm-dd-in-python
 
 total_purchase = 0
 
 selected_ids = []
-while True: 
+
+while True:
     selected_item = input("Select an item number: ")
-    if selected_item == "DONE":
+
+    if selected_item.upper() == "DONE": #source - .upper https://github.com/s2t2/shopping-cart-with-email-receipts/blob/master/checkout.py
         break
     else:
-        selected_ids.append(selected_item)
-        # print(selected_item)
-        # matching_products = [item for item in products if str(item["id"]) == str(selected_item)]
-        # matching_product = matching_products[0]
-        # total_purchase = total_purchase + matching_product["price"]
-        # print(matching_product["name"] + " " + str(matching_product["price"]))
-
-for selected_item in selected_ids:
-    matching_products = [item for item in products if str(item["id"]) == str(selected_item)]
-    matching_product = matching_products[0]
-    total_purchase = total_purchase + matching_product["price"]
+        try:
+            matching_products = [item for item in products if str(item["id"]) == str(selected_item)]
+            matching_product = matching_products[0]
+            selected_ids.append(selected_item)
+            total_purchase = total_purchase + matching_product["price"]
+        #print(selected_item)
+        #matching_products = [item for item in products if str(item["id"]) == str(selected_item)]
+        #matching_product = matching_products[0]
+        #print(matching_product["name"] + " " + str(matching_product["price"]))
+        except IndexError as e:
+            print("Item not found. Please select a valid input.")
+    #source: https://github.com/s2t2/shopping-cart-with-email-receipts/blob/master/checkout.py
+    #for selected_item in selected_ids:
+    #matching_products = [item for item in products if str(item["id"]) == str(selected_item)]
+    #matching_product = matching_products[0]
+    #total_purchase = total_purchase + matching_product["price"]
     # print("SELECTED PRODUCT: " + matching_product["name"] + " " + str(matching_product["price"]))
+    # selected_ids.append(matching_product)
 
-tax_total = (total_purchase * taxrate)
-total_total = total_purchase + tax_total
+tax_total = str(total_purchase * taxrate)
+total_total = str(total_purchase + tax_total)
 print("-----------------------------------")
 print("The Great Variety SuperStore!")
 print("WWW.Brooklyn-Variety-SuperStore.COM")
 print("Phone:(718)-725-0000")
 print("-----------------------------------")
-print("CHECKOUT TIME:" + " " + str(datetime.today().strftime('%m-%d-%Y %H:%M:%S')))
-# source: https://stackoverflow.com/questions/32490629/getting-todays-date-in-yyyy-mm-dd-in-python
+print("CHECKOUT TIME:" + " " + str(datetime.today().strftime('%m-%d-%Y %H:%M')))
+#source: https://stackoverflow.com/questions/32490629/getting-todays-date-in-yyyy-mm-dd-in-python
 print("-----------------------------------")
 print("SELECTED PRODUCTS:")
 for item in selected_ids:
