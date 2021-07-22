@@ -113,10 +113,11 @@ print("-----------------------------------")
 print("SELECTED PRODUCTS:")
 
 for item in selected_ids:
+    print(matching_product["name"] + " (" + to_usd(matching_product["price"]) + ")")
     #matching_products = [item for item in products if str(item["id"]) == str(selected_item)]
     #matching_product = matching_products[0]
     #total_purchase = total_purchase + matching_product["price"]
-    print(matching_product["name"] + " (" + to_usd(matching_product["price"]) + ")")
+    #print(matching_product["name"] + " (" + to_usd(matching_product["price"]) + ")")
 
 print("-----------------------------------")
 print("SUBTOTAL:" + " " + to_usd(total_purchase))
@@ -142,15 +143,16 @@ if user_email_address.upper() == "Y":
 
 if user_email_address.upper() in ["N", "NO", "N/A"]:
     print("You've elected to not receive a receipt via email.")
+    print("THANK YOU FOR SHOPPING WITH US!")
 elif "@" not in user_email_address:
-    print("Oh, detected invalid email address.")
+    print("You have entered an invalid email address.")
 else:
     print("Sending receipt via email...")
 
     # format all product prices as we'd like them to appear in the email...
     formatted_products = []
     for item in selected_ids:
-        formatted_product = item
+        formatted_product = matching_product
         # if not isinstance(formatted_product["price"], str): # weird that this is necessary, only when there are duplicative selections, like 1,1 or 1,2,1 or 3,2,1,2 because when looping through and modifying a previous identical dict, it appears Python treats the next identical dict as the same object that we updated, so treating it as a copy of the first rather than its own unique object in its own right.
         # formatted_product["price"] = to_usd(item["price"])
         formatted_products.append(formatted_product)
