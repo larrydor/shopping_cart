@@ -43,7 +43,7 @@ from datetime import datetime
 import os
 from dotenv import load_dotenv
 load_dotenv()
-taxrate = os.getenv("TAX_RATE")
+taxrate = os.getenv(("TAX_RATE")
 now = datetime.today().strftime('%m-%d-%Y %H:%M:%S')
 # source: https://stackoverflow.com/questions/32490629/getting-todays-date-in-yyyy-mm-dd-in-python
 total_purchase = 0
