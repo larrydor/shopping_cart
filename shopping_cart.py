@@ -95,7 +95,7 @@ print("CHECKOUT TIME:" + " " + str(datetime.today().strftime('%m-%d-%Y %H:%M')))
 print("-----------------------------------")
 print("SELECTED PRODUCTS:")
 for item in selected_ids:
-    print(matching_product["name"] + " " + "(" + to_usd(matching_product["price"]) + ")")
+    #print(item["product"])
 print("-----------------------------------")
 print("SUBTOTAL:" + " " + to_usd(total_purchase))
 print("TAX:" + " " + to_usd(tax_total))
