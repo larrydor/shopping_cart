@@ -3,7 +3,19 @@
 from datetime import datetime
 import os
 from dotenv import load_dotenv
+from sendgrid import SendGridAPIClient
+from sendgird.helpers.mail import Mail
+# source: https://github.com/prof-rossetti/nyu-info-2335-201905/blob/master/notes/python/packages/sendgrid.md
 load_dotenv()
+
+taxrate_env = os.getenv("TAX_RATE")
+SENDGRID_API_KEY = os.environ.get("SENDGRID_API_KEY", "OOPS, please create an environment variable called 'SENDGRID_API_KEY'")
+MY_ADDRESS = os.environ.get("MY_EMAIL_ADDRESS" "OOPS, please create an environment variable called 'SENDGRID_API_KEY'")
+
+
+
+
+
 
 products = [
     {"id":1, "name": "Chocolate Sandwich Cookies", "department": "snacks", "aisle": "cookies cakes", "price": 3.50},
@@ -44,9 +56,6 @@ def to_usd(my_price):
 
 # TODO: write some Python code here to produce the desired output
 
-
-
-taxrate_env = os.getenv("TAX_RATE")
 taxrate = float(taxrate_env)
 #now = datetime.today().strftime('%m-%d-%Y %H:%M:%S')
 #source: https://stackoverflow.com/questions/32490629/getting-todays-date-in-yyyy-mm-dd-in-python
@@ -56,7 +65,6 @@ total_purchase = 0
 selected_ids = []
 while True:
     selected_item = input("Select an item number: ")
-
     if selected_item.upper() == "DONE": #source - .upper https://github.com/s2t2/shopping-cart-with-email-receipts/blob/master/checkout.py
         break
     else:
@@ -84,7 +92,6 @@ while True:
 tax_total = total_purchase * taxrate
 total_total = total_purchase + tax_total
 
-
 print("-----------------------------------")
 print("The Great Variety SuperStore!")
 print("WWW.Brooklyn-Variety-SuperStore.COM")
@@ -94,8 +101,13 @@ print("CHECKOUT TIME:" + " " + str(datetime.today().strftime('%m-%d-%Y %H:%M')))
 #source: https://stackoverflow.com/questions/32490629/getting-todays-date-in-yyyy-mm-dd-in-python
 print("-----------------------------------")
 print("SELECTED PRODUCTS:")
+
 for item in selected_ids:
-    #print(item["product"])
+    #matching_products = [item for item in products if str(item["id"]) == str(selected_item)]
+    #matching_product = matching_products[0]
+    #total_purchase = total_purchase + matching_product["price"]
+    print(matching_product["name"] + " (" + to_usd(matching_product["price"]) + ")")
+
 print("-----------------------------------")
 print("SUBTOTAL:" + " " + to_usd(total_purchase))
 print("TAX:" + " " + to_usd(tax_total))
