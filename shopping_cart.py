@@ -11,7 +11,8 @@ load_dotenv()
 taxrate_env = os.getenv("TAX_RATE")
 SENDGRID_API_KEY = os.environ.get("SENDGRID_API_KEY", "OOPS, please create an environment variable called 'SENDGRID_API_KEY'")
 MY_ADDRESS = os.environ.get("MY_EMAIL_ADDRESS" "OOPS, please create an environment variable called 'SENDGRID_API_KEY'")
-
+SENDGRID_TEMPLATE_ID = os.getenv("SENDGRID_TEMPLATE_ID", default="OOPS, please set env var called 'SENDGRID_TEMPLATE_ID'")
+#source= https://github.com/s2t2/shopping-cart-with-email-receipts/blob/master/checkout.py
 #sg = sendgrid.SendGridAPIClient(api_key=os.environ.get('SENDGRID_API_KEY'))
 #from_email = os.environ.get("MY_EMAIL_ADDRESS" "OOPS, please create an environment variable called 'SENDGRID_API_KEY'")
 #to_email = os.environ.get("MY_EMAIL_ADDRESS" "OOPS, please create an environment variable called 'SENDGRID_API_KEY'")
@@ -160,11 +161,11 @@ else:
         "products": (matching_product["name"] + " (" + to_usd(matching_product["price"]) + ")")
     }
     #print(receipt)
-
+    
     client = SendGridAPIClient(SENDGRID_API_KEY)
 
     message = Mail(from_email=user_email_address, to_emails=user_email_address)
-    message.template_id = "797fd08eb41e4565a8d0f78fe536bf38"
+    message.template_id = SENDGRID_TEMPLATE_ID
     message.dynamic_template_data = receipt
 
     response = client.send(message)
