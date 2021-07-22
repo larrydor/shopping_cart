@@ -49,6 +49,7 @@ taxrate = os.getenv(("TAX_RATE")
 # source: https://stackoverflow.com/questions/32490629/getting-todays-date-in-yyyy-mm-dd-in-python
 
 total_purchase = 0
+
 selected_ids = []
 while True: 
     selected_item = input("Select an item number: ")
