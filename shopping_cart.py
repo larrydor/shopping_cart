@@ -43,9 +43,11 @@ from datetime import datetime
 import os
 from dotenv import load_dotenv
 load_dotenv()
+
 taxrate = os.getenv(("TAX_RATE")
 # now = datetime.today().strftime('%m-%d-%Y %H:%M:%S')
 # source: https://stackoverflow.com/questions/32490629/getting-todays-date-in-yyyy-mm-dd-in-python
+
 total_purchase = 0
 selected_ids = []
 while True: 
@@ -74,6 +76,7 @@ print("WWW.Brooklyn-Variety-SuperStore.COM")
 print("Phone:(718)-725-0000")
 print("-----------------------------------")
 print("CHECKOUT TIME:" + " " + str(datetime.today().strftime('%m-%d-%Y %H:%M:%S')))
+# source: https://stackoverflow.com/questions/32490629/getting-todays-date-in-yyyy-mm-dd-in-python
 print("-----------------------------------")
 print("SELECTED PRODUCTS:")
 for item in selected_ids:
