@@ -15,7 +15,7 @@ Fork this [remote repository](https://github.com/larrydor/shopping_cart) under y
 Then navigate there from the command line (subsequent commands assume you are running them from the local repository's root directory):
 
 ```sh
-cd ~/Desktop/rock-paper-scissors-exercise
+cd ~/Desktop/shopping_cart
 ```
 Use Anaconda to create and activate a new virtual environment, perhaps called "shopping-env":
 
@@ -45,7 +45,7 @@ In the root directory of your local repository, create a new file called ".env",
 Run the Python script:
 
 ```py
-python game.py
+python shopping_cart.py
 ```
 
 > NOTE: if you see an error like "ModuleNotFoundError: No module named '...'", it's because the given package isn't installed, so run the `pip` command above to ensure that package has been installed into the virtual environment.
