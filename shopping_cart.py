@@ -180,7 +180,7 @@ else:
         "tax_price_usd": to_usd(tax_total),
         "total_price_usd": to_usd(total_total),
         "human_friendly_timestamp": now,
-        " products": email_products
+        "products": email_products
     }
 
     #receipt = {
@@ -192,10 +192,10 @@ else:
     #}
     
     client = SendGridAPIClient(SENDGRID_API_KEY)
-    subject = "Your Receipt from The Great Variety Superstore"
+    #subject = "Your Receipt from The Great Variety Superstore"
 
     #message = Mail(from_email=from_email_1, to_emails=to_email_1)
-    message = Mail(from_email=MY_EMAIL_ADDRESS, to_emails=user_email_address, subject=subject)
+    message = Mail(from_email=MY_EMAIL_ADDRESS, to_emails=user_email_address)
     message.template_id = SENDGRID_TEMPLATE_ID
     message.dynamic_template_data = receipt
     response = client.send(message)
