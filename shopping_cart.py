@@ -10,7 +10,7 @@ load_dotenv()
 
 taxrate_env = os.getenv("TAX_RATE")
 SENDGRID_API_KEY = os.environ.get("SENDGRID_API_KEY", "OOPS, please create an environment variable called 'SENDGRID_API_KEY'")
-MY_ADDRESS = os.environ.get("MY_EMAIL_ADDRESS" "OOPS, please create an environment variable called 'SENDGRID_API_KEY'")
+#MY_ADDRESS = os.environ.get("MY_EMAIL_ADDRESS" "OOPS, please create an environment variable called 'SENDGRID_API_KEY'")
 SENDGRID_TEMPLATE_ID = os.getenv("SENDGRID_TEMPLATE_ID", default="OOPS, please set env var called 'SENDGRID_TEMPLATE_ID'")
 #source= https://github.com/s2t2/shopping-cart-with-email-receipts/blob/master/checkout.py
 #sg = sendgrid.SendGridAPIClient(api_key=os.environ.get('SENDGRID_API_KEY'))
@@ -23,9 +23,6 @@ SENDGRID_TEMPLATE_ID = os.getenv("SENDGRID_TEMPLATE_ID", default="OOPS, please s
 #print(response.status_code)
 #print(response.body)
 #print(response.headers)
-
-
-
 
 products = [
     {"id":1, "name": "Chocolate Sandwich Cookies", "department": "snacks", "aisle": "cookies cakes", "price": 3.50},
@@ -114,6 +111,7 @@ print("SELECTED PRODUCTS:")
 
 for item in selected_ids:
     print(matching_product["name"] + " (" + to_usd(matching_product["price"]) + ")")
+    #print(selected_ids["name"] + " (" + to_usd(selected_ids["price"]) + ")")
     #matching_products = [item for item in products if str(item["id"]) == str(selected_item)]
     #matching_product = matching_products[0]
     #total_purchase = total_purchase + matching_product["price"]
@@ -136,10 +134,10 @@ print("-----------------------------------")
 
 print("Would you like an emailed receipt?")
 user_email_address = input("Please input your email address, or 'N' to opt-out: ")
+EMAIL_ADDRESS = user_email_address
 
 if user_email_address.upper() == "Y":
     print(f"We will send a receipt to {EMAIL_ADDRESS}")
-    user_email_address = EMAIL_ADDRESS
 
 if user_email_address.upper() in ["N", "NO", "N/A"]:
     print("You've elected to not receive a receipt via email.")
@@ -152,7 +150,7 @@ else:
     # format all product prices as we'd like them to appear in the email...
     formatted_products = []
     for item in selected_ids:
-        formatted_product = matching_product
+        formatted_product = matching_products
         # if not isinstance(formatted_product["price"], str): # weird that this is necessary, only when there are duplicative selections, like 1,1 or 1,2,1 or 3,2,1,2 because when looping through and modifying a previous identical dict, it appears Python treats the next identical dict as the same object that we updated, so treating it as a copy of the first rather than its own unique object in its own right.
         # formatted_product["price"] = to_usd(item["price"])
         formatted_products.append(formatted_product)
