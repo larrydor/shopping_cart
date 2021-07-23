@@ -70,24 +70,23 @@ now = datetime.today().strftime('%m-%d-%Y %H:%M:%S')
 total_purchase = 0
 
 selected_ids = []
+
 while True:
-    selected_item = input("Select an item number: ")
+    selected_item = input("Select an item number (1-20): ")
     if selected_item.upper() == "DONE": #source - .upper https://github.com/s2t2/shopping-cart-with-email-receipts/blob/master/checkout.py
         break
     else:
-        try:
-            matching_products = [item for item in products if str(item["id"]) == str(selected_item)]
-            matching_product = matching_products[0]
-            selected_ids.append(selected_item)
-            total_purchase = total_purchase + matching_product["price"]
-            #total_purchase = sum([float(item["price"]) for item in selected_ids])
-            #source: https://github.com/s2t2/shopping-cart-with-email-receipts/blob/master/checkout.py
+        #selected_item = input("Select an item number: ")
+        selected_ids.append(selected_item)
+        #total_purchase = total_purchase + matching_product["price"]
+        #total_purchase = sum([float(item["price"]) for item in selected_ids])
+        #source: https://github.com/s2t2/shopping-cart-with-email-receipts/blob/master/checkout.py
         #print(selected_item)
         #matching_products = [item for item in products if str(item["id"]) == str(selected_item)]
         #matching_product = matching_products[0]
         #print(matching_product["name"] + " " + str(matching_product["price"]))
-        except IndexError as e:
-            print("Item not found. Please select a valid input.")
+    #except IndexError as e:
+    #    print("Item not found. Please select a valid input.")
     #source: https://github.com/s2t2/shopping-cart-with-email-receipts/blob/master/checkout.py
     #for selected_item in selected_ids:
     #matching_products = [item for item in products if str(item["id"]) == str(selected_item)]
@@ -96,8 +95,7 @@ while True:
     # print("SELECTED PRODUCT: " + matching_product["name"] + " " + str(matching_product["price"]))
     # selected_ids.append(matching_product)
 
-tax_total = total_purchase * taxrate
-total_total = total_purchase + tax_total
+
 
 print("-----------------------------------")
 print("The Great Variety SuperStore!")
@@ -109,13 +107,21 @@ print("CHECKOUT TIME:" + " " + str(datetime.today().strftime('%m-%d-%Y %H:%M')))
 print("-----------------------------------")
 print("SELECTED PRODUCTS:")
 
-for item in selected_ids:
+for selected_id in selected_ids:
+    #breakpoint() source: Professor Rossetti
+    matching_products = [item for item in products if str(item["id"]) == str(selected_id)]
+    matching_product = matching_products[0]
     print(matching_product["name"] + " (" + to_usd(matching_product["price"]) + ")")
+    total_purchase = total_purchase + matching_product["price"]
     #print(selected_ids["name"] + " (" + to_usd(selected_ids["price"]) + ")")
     #matching_products = [item for item in products if str(item["id"]) == str(selected_item)]
     #matching_product = matching_products[0]
     #total_purchase = total_purchase + matching_product["price"]
     #print(matching_product["name"] + " (" + to_usd(matching_product["price"]) + ")")
+    # I recieved help from Abhishek Swaminathan on getting the code order correct!
+
+tax_total = total_purchase * taxrate
+total_total = total_purchase + tax_total
 
 print("-----------------------------------")
 print("SUBTOTAL:" + " " + to_usd(total_purchase))
@@ -137,7 +143,7 @@ user_email_address = input("Please input your email address, or 'N' to opt-out: 
 EMAIL_ADDRESS = user_email_address
 
 if user_email_address.upper() == "Y":
-    print(f"We will send a receipt to {EMAIL_ADDRESS}")
+    print(f"We will send a receipt to {EMAIL_ADDRESS}.")
 
 if user_email_address.upper() in ["N", "NO", "N/A"]:
     print("You've elected to not receive a receipt via email.")
@@ -145,14 +151,16 @@ if user_email_address.upper() in ["N", "NO", "N/A"]:
 elif "@" not in user_email_address:
     print("You have entered an invalid email address.")
 else:
-    print("Sending receipt via email...")
+    print(f"Sending receipt to {EMAIL_ADDRESS}.")
 
     # format all product prices as we'd like them to appear in the email...
     formatted_products = []
-    for item in selected_ids:
-        formatted_product = matching_products
-        # if not isinstance(formatted_product["price"], str): # weird that this is necessary, only when there are duplicative selections, like 1,1 or 1,2,1 or 3,2,1,2 because when looping through and modifying a previous identical dict, it appears Python treats the next identical dict as the same object that we updated, so treating it as a copy of the first rather than its own unique object in its own right.
-        # formatted_product["price"] = to_usd(item["price"])
+    for p in selected_ids:
+        #matching_products = [item for item in products if str(item["id"]) == str(selected_id)]
+        #matching_product = matching_products[0]
+        formatted_product = p
+        #if not isinstance(formatted_product["price"], str):
+        #formatted_product["price"] = to_usd(p["price"])
         formatted_products.append(formatted_product)
 
     receipt = {
@@ -160,8 +168,7 @@ else:
         "tax_price_usd": to_usd(tax_total),
         "total_price_usd": to_usd(total_total),
         "human_friendly_timestamp": now,
-        "products": formatted_products 
-        #  (matching_product["name"] + " (" + to_usd(matching_product["price"]) + ")")
+        "products": formatted_products
     }
     
     client = SendGridAPIClient(SENDGRID_API_KEY)
@@ -178,4 +185,4 @@ else:
     #        print(response.status_code)
     #        print(response.body)
 
-    print("Thank You for Shopping at The Great Variety!")
+print("Thank You for Shopping at The Great Variety!")
