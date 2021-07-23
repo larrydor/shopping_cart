@@ -8,7 +8,7 @@ from sendgrid.helpers.mail import Mail
 # source: https://github.com/prof-rossetti/nyu-info-2335-201905/blob/master/notes/python/packages/sendgrid.md
 load_dotenv()
 
-taxrate_env = os.getenv("TAX_RATE")
+taxrate = float(os.getenv("TAX_RATE"))
 SENDGRID_API_KEY = os.environ.get("SENDGRID_API_KEY", "OOPS, please create an environment variable called 'SENDGRID_API_KEY'")
 #MY_ADDRESS = os.environ.get("MY_EMAIL_ADDRESS" "OOPS, please create an environment variable called 'SENDGRID_API_KEY'")
 SENDGRID_TEMPLATE_ID = os.getenv("SENDGRID_TEMPLATE_ID", default="OOPS, please set env var called 'SENDGRID_TEMPLATE_ID'")
@@ -63,7 +63,7 @@ def to_usd(my_price):
 
 # TODO: write some Python code here to produce the desired output
 
-taxrate = float(taxrate_env)
+#taxrate = float(taxrate_env)
 now = datetime.today().strftime('%m-%d-%Y %H:%M:%S')
 #source: https://stackoverflow.com/questions/32490629/getting-todays-date-in-yyyy-mm-dd-in-python
 
@@ -168,7 +168,7 @@ else:
         "tax_price_usd": to_usd(tax_total),
         "total_price_usd": to_usd(total_total),
         "human_friendly_timestamp": now,
-        "products": formatted_products
+        "products": selected_ids
     }
     
     client = SendGridAPIClient(SENDGRID_API_KEY)
@@ -185,4 +185,4 @@ else:
     #        print(response.status_code)
     #        print(response.body)
 
-print("Thank You for Shopping at The Great Variety!")
+    print("Thank You for Shopping at The Great Variety!")
