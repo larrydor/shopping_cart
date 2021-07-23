@@ -34,7 +34,9 @@ pip install -r requirements.txt
 
 ## Configuration
 
-Follow these [SendGrid setup instructions](https://github.com/prof-rossetti/intro-to-python/blob/master/notes/python/packages/sendgrid.md#setup) to sign up for a SendGrid account, configure your account's email address (i.e. `SENDER_EMAIL_ADDRESS`), and obtain an API key (i.e. `SENDGRID_API_KEY`). Also you will need to create a SendGrid Dynamic Email Template to store receipt contents. Additionally, please create a TAX_RATE variable within the .env file to specific your locations specific tax rates.
+Follow these [SendGrid setup instructions](https://github.com/prof-rossetti/intro-to-python/blob/master/notes/python/packages/sendgrid.md#setup) to sign up for a SendGrid account, configure your account's email address (i.e. `SENDER_EMAIL_ADDRESS`), and obtain an API key (i.e. `SENDGRID_API_KEY`). Also you will need to create a SendGrid Dynamic Email Template to programmatically display order contents. 
+
+## Setup
 
 Create a new file called ".env" in the root directory of this repo, and paste the following contents inside, using your own values as appropriate:
 
@@ -45,6 +47,8 @@ SENDGRID_TEMPLATE_ID="_____________"
 SENDER_EMAIL_ADDRESS="_______________"
 TAX_RATE="______"
 ```
+
+> NOTE: Please, create a TAX_RATE variable within the .env file to specific your location's specific tax rate.
 
 > NOTE: the ".env" file is usually the place for passing configuration options and secret credentials, so as a best practice we don't upload this file to version control (which is accomplished via a corresponding entry in the [".gitignore"](/.gitignore) file). This means we need to instruct each person who uses our code needs to create their own local ".env" file.
 
