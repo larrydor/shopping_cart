@@ -158,23 +158,38 @@ elif "@" not in user_email_address:
 else:
     print(f"Sending receipt to {EMAIL_ADDRESS}.")
 
-    # format all product prices as we'd like them to appear in the email...
-    formatted_products = []
-    for p in selected_ids:
-        #matching_products = [item for item in products if str(item["id"]) == str(selected_id)]
-        #matching_product = matching_products[0]
-        formatted_product = p
+    #formatted_products = []
+    #for selected_id in selected_ids:
+        #formatted_products[0] = selected_id["name"][0]
+        #formatted_product = p
         #if not isinstance(formatted_product["price"], str):
         #formatted_product["price"] = to_usd(p["price"])
-        formatted_products.append(formatted_product)
+        #formatted_products.append(formatted_product)
     
+    email_products = []
+    for items in range(len(selected_ids)):
+        if not selected_ids[items].isnumeric():
+            email_product = selected_ids[items]
+            email_product["name"] = items["name"]
+            email_product["price"] = to_usd(items["price"])
+            email_products.append(email_product)
+        #source: https://stackoverflow.com/questions/10631473/str-object-does-not-support-item-assignment-in-python
+
     receipt = {
         "subtotal_price_usd": to_usd(total_purchase),
         "tax_price_usd": to_usd(tax_total),
         "total_price_usd": to_usd(total_total),
         "human_friendly_timestamp": now,
-        "products": selected_ids
+        " products": email_products
     }
+
+    #receipt = {
+    #    "subtotal_price_usd": to_usd(total_purchase),
+    #    "tax_price_usd": to_usd(tax_total),
+    #    "total_price_usd": to_usd(total_total),
+    #    "human_friendly_timestamp": now,
+    #    "products":
+    #}
     
     client = SendGridAPIClient(SENDGRID_API_KEY)
 
