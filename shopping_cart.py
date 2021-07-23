@@ -14,8 +14,6 @@ SENDGRID_API_KEY = os.environ.get("SENDGRID_API_KEY", "OOPS, please create an en
 SENDGRID_TEMPLATE_ID = os.getenv("SENDGRID_TEMPLATE_ID", default="OOPS, please set env var called 'SENDGRID_TEMPLATE_ID'")
 #source= https://github.com/s2t2/shopping-cart-with-email-receipts/blob/master/checkout.py
 #sg = sendgrid.SendGridAPIClient(api_key=os.environ.get('SENDGRID_API_KEY'))
-#from_email = os.environ.get("MY_EMAIL_ADDRESS" "OOPS, please create an environment variable called 'SENDGRID_API_KEY'")
-#to_email = os.environ.get("MY_EMAIL_ADDRESS" "OOPS, please create an environment variable called 'SENDGRID_API_KEY'")
 #subject = "Sending with SendGrid is Fun"
 #content = Content("text/plain", "and easy to do anywhere, even with Python")
 #mail = Mail(from_email, to_email, subject, content)
@@ -141,7 +139,8 @@ print("-----------------------------------")
 print("Would you like an emailed receipt?")
 user_email_address = input("Please input your email address, or 'N' to opt-out: ")
 EMAIL_ADDRESS = user_email_address
-
+#from_email_1 = os.environ.get("MY_EMAIL_ADDRESS" "OOPS, please create an environment variable called 'SENDGRID_API_KEY'")
+#to_email_1 = EMAIL_ADDRESS
 if user_email_address.upper() == "Y":
     print(f"We will send a receipt to {EMAIL_ADDRESS}.")
 
@@ -173,6 +172,7 @@ else:
     
     client = SendGridAPIClient(SENDGRID_API_KEY)
 
+    #message = Mail(from_email=from_email_1, to_emails=to_email_1)
     message = Mail(from_email=user_email_address, to_emails=user_email_address)
     message.template_id = SENDGRID_TEMPLATE_ID
     message.dynamic_template_data = receipt
