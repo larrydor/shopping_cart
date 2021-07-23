@@ -98,8 +98,8 @@ while True:
 
 
 print("-----------------------------------")
-print("The Great Variety SuperStore!")
-print("WWW.Brooklyn-Variety-SuperStore.COM")
+print("The Great Variety Superstore!")
+print("WWW.Great-Variety-SuperStore.COM")
 print("Phone:(718)-725-0000")
 print("-----------------------------------")
 print("CHECKOUT TIME:" + " " + str(datetime.today().strftime('%m-%d-%Y %H:%M')))
@@ -185,4 +185,4 @@ else:
     #        print(response.status_code)
     #        print(response.body)
 
-    print("Thank You for Shopping at The Great Variety!")
+    print("Thank You for Shopping at The Great Variety Superstore!")
