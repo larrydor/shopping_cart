@@ -32,11 +32,19 @@ pip install -r requirements.txt
 
 > NOTE: if this command throws an error like "Could not open requirements file: [Errno 2] No such file or directory", make sure you are running it from the repository's root directory, where the requirements.txt file exists (see the initial `cd` step above).
 
-## Setup
+## Configuration
 
-In the root directory of your local repository, create a new file called ".env", and update the contents of the ".env" file to specify your desired username (then make sure to SAVE the ".env" file aftwards):
+Follow these [SendGrid setup instructions](https://github.com/prof-rossetti/intro-to-python/blob/master/notes/python/packages/sendgrid.md#setup) to sign up for a SendGrid account, configure your account's email address (i.e. `SENDER_EMAIL_ADDRESS`), and obtain an API key (i.e. `SENDGRID_API_KEY`). Also you will need to create a SendGrid Dynamic Email Template to store receipt contents. Additionally, please create a TAX_RATE variable within the .env file to specific your locations specific tax rates.
 
-    TAX_RATE=0.0875
+Create a new file called ".env" in the root directory of this repo, and paste the following contents inside, using your own values as appropriate:
+
+```sh
+# required contents for ".env" file:
+SENDGRID_API_KEY="_______________"
+SENDGRID_TEMPLATE_ID="_____________"
+SENDER_EMAIL_ADDRESS="_______________"
+TAX_RATE="______"
+```
 
 > NOTE: the ".env" file is usually the place for passing configuration options and secret credentials, so as a best practice we don't upload this file to version control (which is accomplished via a corresponding entry in the [".gitignore"](/.gitignore) file). This means we need to instruct each person who uses our code needs to create their own local ".env" file.
 
