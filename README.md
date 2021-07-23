@@ -64,5 +64,5 @@ python shopping_cart.py
 
 ## Reference
 Thank you to Professor Rossetti for providing a reference README file and SendGrid configuration instructions.
-> Source: https://raw.githubusercontent.com/prof-rossetti/my-first-python-app/main/README.md
-> Source: https://github.com/prof-rossetti/intro-to-python/blob/main/notes/python/packages/sendgrid.md#setup
+1. Source: https://raw.githubusercontent.com/prof-rossetti/my-first-python-app/main/README.md
+1. Source: https://github.com/prof-rossetti/intro-to-python/blob/main/notes/python/packages/sendgrid.md#setup
