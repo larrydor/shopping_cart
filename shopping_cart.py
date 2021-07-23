@@ -9,8 +9,8 @@ from sendgrid.helpers.mail import Mail
 load_dotenv()
 
 taxrate = float(os.getenv("TAX_RATE"))
-SENDGRID_API_KEY = os.environ.get("SENDGRID_API_KEY", "OOPS, please create an environment variable called 'SENDGRID_API_KEY'")
-#MY_ADDRESS = os.environ.get("MY_EMAIL_ADDRESS" "OOPS, please create an environment variable called 'SENDGRID_API_KEY'")
+SENDGRID_API_KEY = os.getenv("SENDGRID_API_KEY", "OOPS, please create an environment variable called 'SENDGRID_API_KEY'")
+EMAIL_ADDRESS = os.getenv("MY_EMAIL_ADDRESS" "OOPS, please create an environment variable called 'SENDGRID_API_KEY'")
 SENDGRID_TEMPLATE_ID = os.getenv("SENDGRID_TEMPLATE_ID", default="OOPS, please set env var called 'SENDGRID_TEMPLATE_ID'")
 #source= https://github.com/s2t2/shopping-cart-with-email-receipts/blob/master/checkout.py
 #sg = sendgrid.SendGridAPIClient(api_key=os.environ.get('SENDGRID_API_KEY'))
@@ -74,8 +74,13 @@ while True:
     if selected_item.upper() == "DONE": #source - .upper https://github.com/s2t2/shopping-cart-with-email-receipts/blob/master/checkout.py
         break
     else:
+        try:
+            matching_products = [item for item in products if str(item["id"]) == str(selected_item)]
+            matching_product = matching_products[0]
+            selected_ids.append(selected_item)
+        except IndexError as e:
+            print("Item not found. Please select a valid input.")
         #selected_item = input("Select an item number: ")
-        selected_ids.append(selected_item)
         #total_purchase = total_purchase + matching_product["price"]
         #total_purchase = sum([float(item["price"]) for item in selected_ids])
         #source: https://github.com/s2t2/shopping-cart-with-email-receipts/blob/master/checkout.py
@@ -83,8 +88,7 @@ while True:
         #matching_products = [item for item in products if str(item["id"]) == str(selected_item)]
         #matching_product = matching_products[0]
         #print(matching_product["name"] + " " + str(matching_product["price"]))
-    #except IndexError as e:
-    #    print("Item not found. Please select a valid input.")
+    
     #source: https://github.com/s2t2/shopping-cart-with-email-receipts/blob/master/checkout.py
     #for selected_item in selected_ids:
     #matching_products = [item for item in products if str(item["id"]) == str(selected_item)]
@@ -138,11 +142,13 @@ print("-----------------------------------")
 
 print("Would you like an emailed receipt?")
 user_email_address = input("Please input your email address, or 'N' to opt-out: ")
+
 EMAIL_ADDRESS = user_email_address
 #from_email_1 = os.environ.get("MY_EMAIL_ADDRESS" "OOPS, please create an environment variable called 'SENDGRID_API_KEY'")
 #to_email_1 = EMAIL_ADDRESS
-if user_email_address.upper() == "Y":
-    print(f"We will send a receipt to {EMAIL_ADDRESS}.")
+
+#if user_email_address.upper() == "Y":
+#    print(f"We will send a receipt to {EMAIL_ADDRESS}.")
 
 if user_email_address.upper() in ["N", "NO", "N/A"]:
     print("You've elected to not receive a receipt via email.")
@@ -161,7 +167,7 @@ else:
         #if not isinstance(formatted_product["price"], str):
         #formatted_product["price"] = to_usd(p["price"])
         formatted_products.append(formatted_product)
-
+    
     receipt = {
         "subtotal_price_usd": to_usd(total_purchase),
         "tax_price_usd": to_usd(tax_total),
@@ -182,7 +188,7 @@ else:
         print("Email sent successfully!")
     else:
         print("Oh, something went wrong with sending the email.")
-    #        print(response.status_code)
-    #        print(response.body)
+        print(response.status_code)
+        print(response.body)
 
     print("Thank You for Shopping at The Great Variety Superstore!")
