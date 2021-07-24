@@ -1,0 +1,29 @@
+<img src="https://assets.aboutamazon.com/dims4/default/b497a4a/2147483647/strip/true/crop/2000x1126+0+168/resize/1320x743!/format/webp/quality/90/?url=https%3A%2F%2Famazon-blogs-brightspot.s3.amazonaws.com%2F4b%2F89%2F9371cec440f79aa6e2d438f6a9f8%2Fwelcome-sign-0901-blog-size.jpg">
+
+
+<h3>Thank You for Shopping at The Great Variety Superstore!</h3>
+
+
+<p>Date: {{human_friendly_timestamp}}</p>
+
+<br>
+<p>Order Summary:</p>
+<ol>
+
+{{#each products}}
+	<li>{{this.name}} ... {{this.price}}</li>
+{{/each}}
+</ol>
+
+
+<p>Subtotal: {{subtotal_price_usd}}</p>
+
+<p>Sales Tax: {{tax_price_usd}}</p>
+
+<p>Total: {{total_price_usd}}</p>
+
+<br>
+
+<h3>The Great Variety Superstore!</h3>
+<h3>www.Great-Variety-Superstore.com</h3>
+<h3>Phone: (718)-725-0000</h3>
