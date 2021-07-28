@@ -65,12 +65,14 @@ def to_usd(my_price):
 now = datetime.today().strftime('%m-%d-%Y %H:%M:%S')
 #source: https://stackoverflow.com/questions/32490629/getting-todays-date-in-yyyy-mm-dd-in-python
 
+print("Welcome to The Great Variety Superstore!")
+
 total_purchase = 0
 
 selected_ids = []
 
 while True:
-    selected_item = input("Select an item number (1-20): ")
+    selected_item = input("Select an item number (1-20) or enter (DONE) when finished shopping: ")
     if selected_item.upper() == "DONE": #source - .upper https://github.com/s2t2/shopping-cart-with-email-receipts/blob/master/checkout.py
         break
     else:
